@@ -1,0 +1,2104 @@
+﻿{
+  "modName": "Pack Attack NPC",
+  "displayName": "Pack Attack NPC Edition",
+  "minMcmVersion": 2,
+  "pluginRequirements": [
+    "PANPC.esm"
+  ],
+  "content": [
+    {
+      "text": "<p align='center'><font size='30'>Pack Attack NPC Edition</font><BR><font size='20'>v2.0.12.1 (4/2/23)</font></p>",
+      "html": true,
+      "type": "text"
+    },
+    {
+      "text": "<p align='center'>von Greslin</p>",
+      "html": true,
+      "type": "text"
+    },
+    {
+      "text": "Über",
+      "type": "section"
+    },
+    {
+      "text": "<font size='18'><b>PANPC</B> (Pack Attack NPC Edition) wendet soziale Kampf-KI auf NPC-Gangs an. Anstatt dich einfach als Gruppe offen anzugreifen, werden diese Gegner Deckung suchen, sich zurückziehen und dich flankieren, rennen und sich verstecken und sogar auf dich lauern. Sie neigen eher dazu, Hinterhalte zu legen statt sich selbstmörderischen Angriffen hinzugeben, und sie sind bereit, bei Bedarf auf Nahkampf umzusteigen.</font>",
+      "type": "text",
+      "html": true
+    },
+    {
+      "type": "spacer"
+    },
+    {
+      "text": "Für Neuigkeiten und Support besuche bitte <b>GreslinGames Patreon!</b><br>https://www.patreon.com/greslin",
+      "type": "text",
+      "html": true
+    }
+  ],
+  "pages": [
+    {
+      "pageDisplayName": "Allgemeine Einstellungen",
+      "content": [
+        {
+          "text": "Allgemeine Einstellungen",
+          "type": "section"
+        },
+        {
+          "text": "<font size='18'>Ein \"taktischer NPC\" ist im Wesentlichen ein intelligenter NPC, der präzise Kampfbewertungen durchführen kann. Dies unterscheidet ihn von instinktgetriebenen Tieren oder Kreaturen wie Hunden, Maulwurfsratten und ähnlichen. (Beachte: Todeskrallen in PANPC sind Beispiele für taktische NPCs!)</font>",
+          "type": "text",
+          "html": true
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Taktische NPC-Reaktionen bei Todeskrallen einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "html": true,
+          "help": "Wenn EIN, reagieren taktische NPCs entweder mit Panik oder konzentriertem Feuer, wenn eine Todeskralle auftaucht.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_DeathclawPanic"
+          }
+        },
+        {
+          "text": "Anzeige von Befehlsmeldungen im Spiel? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden Meldungen angezeigt, sobald ein verbündeter NPC eine Befehlsmechanik einsetzt.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ShowPlayMessages"
+          }
+        },
+        {
+          "text": "PANPC auf Kinder-NPCs anwenden (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden Kinder-NPCs entsprechend ihrer Fraktionszugehörigkeit aktiviert.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105FD"
+          }
+        },
+        {
+          "text": "Agressiver Commonwealth-Modus",
+          "type": "switcher",
+          "help": "Wenn EIN, werden neutrale NPCs von allen als legitime Kampfziele betrachtet.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_EnableVicious"
+          }
+        },
+        {
+          "text": "Die KI darf auf Nicht-PANPC-Akteure zielen (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, wenden die KIs das PANPC-Zielsysteme auf alle verfügbaren Akteure an.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|012C24"
+          }
+        },
+        {
+          "text": "Proaktive Warnungen verwenden (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, gehen die KIs von selbst in den Alarmzustand über.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|01153C"
+          }
+        },
+        {
+          "text": "Out-of-Ammo-Verhalten verwenden (def: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, reagieren die KIs, wenn ihnen die Munition ausgeht.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|01806E"
+          }
+        },
+        {
+          "text": "Stumm-/Immersionsmodus (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, zeigt PANPC keine Bildschirmmeldungen an.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105FC"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Kampf-Profile",
+      "content": [
+        {
+          "text": "Kampf-Profile",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Alle derzeit unterstützten NPCs verwenden eines dieser Gruppenkampf-Profile.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Feindliche NPCs",
+          "type": "section"
+        },
+        {
+          "text": "Raider-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Raider-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105DD"
+          }
+        },
+        {
+          "text": "Gunner-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Gunners-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105DE"
+          }
+        },
+        {
+          "text": "Synth-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der standardmäßig das Synth-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105DF"
+          }
+        },
+        {
+          "text": "Supermutant-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Supermutant-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E1"
+          }
+        },
+        {
+          "text": "Wilder Ghul-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Wilder Ghul-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E4"
+          }
+        },
+        {
+          "text": "Todeskralle-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Todeskralle-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E5"
+          }
+        },
+        {
+          "text": "Plünderer-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Plünderer-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105FA"
+          }
+        },
+        {
+          "text": "Kultisten-NPC-Profil aktivieren? (def: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der standardmäßig das Profil Kultist verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105EB"
+          }
+        },
+        {
+          "text": "Todesschütze-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Todesschütze-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105EC"
+          }
+        },
+        {
+          "text": "Runner-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Runner-Profil verwendet, auf das zum vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105ED"
+          }
+        },
+        {
+          "text": "Kinder des Atoms-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der standardmäßig das Kinder des Atom-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F1"
+          }
+        },
+        {
+          "text": "Covenant-NPC-Profil einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der standardmäßig das Covenant-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F4"
+          }
+        },
+        {
+          "text": "Geschmiedete-Profil einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Geschmiedeter-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F5"
+          }
+        },
+        {
+          "text": "Far Harbor Fallensteller-NPC-Profil einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Far Harbor-Fallensteller-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F2"
+          }
+        },
+        {
+          "text": "Rust Devil-NPC-Profil einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Far Harbor-Fallensteller-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105FB"
+          }
+        },
+        {
+          "text": "Bot-NPC-Profil einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Bot-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|17870"
+          }
+        },
+        {
+          "text": "Augenbot-NPC-Profil einschalten? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Augenbot-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|17882"
+          }
+        },
+        {
+          "text": "Zeta Alien-NPC-Profil einschalten? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Zeta Alien-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|1788E"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Freundliche NPCs",
+          "type": "section"
+        },
+        {
+          "text": "Workshop-NPC-Profil aktivieren? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Workshop-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105DC"
+          }
+        },
+        {
+          "text": "DC Wache-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das DC Wache-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105EF"
+          }
+        },
+        {
+          "text": "Nachbarschaftswache-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Nachbarschaftswache-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F6"
+          }
+        },
+        {
+          "text": "Bruderschaft-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Bruderschaft-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E0"
+          }
+        },
+        {
+          "text": "Railroad-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Railroad-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F0"
+          }
+        },
+        {
+          "text": "Karawanenwache-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Karawanenwache-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105EE"
+          }
+        },
+        {
+          "text": "Minutemen-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Minutemen-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E2"
+          }
+        },
+        {
+          "text": "Minutemen-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Acadia-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F3"
+          }
+        },
+        {
+          "text": "Einzigartig NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Einzigartig-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F7"
+          }
+        },
+        {
+          "text": "Einzigartiger Händler-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Einzigartiger Händler-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105F8"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Wildtier-NPCs",
+          "type": "section"
+        },
+        {
+          "text": "Hunde/Wölfe-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Profil \"hundeartig\" verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E3"
+          }
+        },
+        {
+          "text": "Mirelurk-NPC-Profil aktivieren? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Mirelurk-NPC-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E6"
+          }
+        },
+        {
+          "text": "RAD-Skorpion-NPC-Profil einschalten? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das RAD-Skorpion-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E8"
+          }
+        },
+        {
+          "text": "Yao Guai-NPC-Profil einschalten? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Yao Guai-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E7"
+          }
+        },
+        {
+          "text": "Brahmin-NPC-Profil einschalten? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das Brahmin-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105E9"
+          }
+        },
+        {
+          "text": "RAD-Hirsch-NPC-Profil einschalten? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird jeder NPC, der das RAD-Hirsch-Profil verwendet, auf das vanilla-Verhalten zurückgesetzt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105EA"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Laut-Steuerung",
+      "content": [
+        {
+          "text": "Laut-Steuerung",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Laut-Steuerung ist das PANPC-Teilsystem, das spöttische Laute und Äußerungen von NPCs selektiv ausschaltet. Wenn AUS, werden NPCs wieder auf das vanilla-Verhalten zurückgesetzt. (Hinweis: Dies hat KEINERLEI Einfluss auf Untertitel.)",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Laut-Steuerung feindlicher NPCs einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden Laute und Äußerungen von NPCs in taktischen Situationen selektiv ausgeschaltet.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_EnableBarkControl"
+          }
+        },
+        {
+          "text": "Laut-Steuerung auf NPCs in Szenen anwenden? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, wird die Laut-Steuerung auf NPCs in inszinierten Dialogen angewendet.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_EnableSceneBarkControl"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Workshop-NPCs",
+      "content": [
+        {
+          "text": "Workshop-NPCs",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Alle Workshop-/Siedlungs-NPCs können entweder dazu angewiesen werden, Arbeit zu verrichten, sich einer Karawane anzuschließen oder in eine andere Siedlung geschickt werden. Wenn irgendeine dieser Eisntellungen eingeschaltet ist, darf diese Gruppe außerhalb des Kampfgeschehens auf Patrouille gehen, Leichen durchsuchen usw. Im Zweifel ausgeschaltet lassen.",
+          "type": "text"
+        },
+        {
+          "text": "Hinweis: Das Ausschalten einer dieser Einstellungen verhindert NICHT, dass das KI-Skript angehängt wird. Es verhindert lediglich bestimmte Verhaltensweisen, sobald der Arbeiter angeheuert wurde. Die Kampf-KI bleibt weiterhin aktiv. Um PANPC daran zu hindern, das KI-Skript anzuhängen, schalte die Profile \"Workshop-NPC\" und generisch menschliche Profile aus.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Workshop-NPCs erlauben, auf Patrouille zu gehen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, dürfen zuweisbare Workshop-NPCs Aktionen außerhalb des Kampfes nachgehen.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_WorkshopAllowCommand"
+          }
+        },
+        {
+          "text": "Karawanen-NPCs erlauben, auf Patrouille zu gehen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, dürfen Karawanen-NPCs Aktionen außerhalb des Kampfes nachgehen.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_WorkshopAllowCaravan"
+          }
+        },
+        {
+          "text": "Siedler-NPCs, die in andere Siedlungen geschickt werden können, erlauben, auf Patrouille zu gehen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, dürfen diese Workshop-NPCs Aktionen außerhalb des Kampfes nachgehen.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_WorkshopAllowMove"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Waffen",
+      "content": [
+        {
+          "text": "Waffen",
+          "type": "section"
+        },
+        {
+          "text": "Einsatz von Molotovs in Innenbereichen einschränken (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN werden NPCs daran gehindert, unbeschränkt Molotov-Cocktails zu spammen.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_NoMolotovIndoor"
+          }
+        },
+        {
+          "text": "Molotov-Cocktails nach Tod wiederherstellen (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden Molotov-Cocktails von PANPCs nach deren Tod wiederhergestellt.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_NoMolotovRestore"
+          }
+        },
+        {
+          "text": "Modifikator für Zielstabilität (Std.: 1.2)",
+          "type": "slider",
+          "help": "Erhöht insgesamt die Zielgenauigkeit aller unterstützten PANPCs.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.1,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_AimStableMod"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Fähigkeiten",
+      "content": [
+        {
+          "text": "Selbstheilung",
+          "type": "section"
+        },
+        {
+          "text": "Können NPCs  Stimpaks auf sich selbst anwenden? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, können dazu fähige NPCs auf sich selbst Stimpaks anwendenn.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|0105DB"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Befehligen",
+          "type": "section"
+        },
+        {
+          "text": "Befehligen/Konzentriertes Feuer auf Einzelziel einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, erhalten bestimmte PANPC-Gruppen die Fähigkeit, das Feuer auf ein Einzelziel zu konzentrieren.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_FocusFireEnabled"
+          }
+        },
+        {
+          "text": "Tapferkeit-Modifikator für Befehlshaber (Std.: 1.0) ",
+          "type": "slider",
+          "help": "Skaliert die minimal benötigte Tapferkeit, bevor ein PANPC ein Fokusfeuer-Befehlsziel festlegen kann.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.1,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_FocusFireCourageMod"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Hinterhalt",
+          "type": "section"
+        },
+        {
+          "text": "Fähigkeit zum Auflauern einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, sind bestimmte PANPCs nicht nur in der Lage, dich auch außerhalb ihres normalen Wahrnehmungsradiuses anzugreifen ... sie werden es auch machen!",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_AmbushEnabled"
+          }
+        },
+        {
+          "text": "Modifikator für die Größe der Hinterhaltzone",
+          "type": "slider",
+          "help": "Skaliert die Größe der Hinterhaltzone im Verhältnis zur maximalen Scan-Reichweite des PANPCs (1.0 = 100 % der maximalen Scan-Reichweite).",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_AmbushRange"
+          }
+        },
+        {
+          "text": "Hinterhalte ab Spielerstufe  (Std.: 10):",
+          "type": "slider",
+          "help": "Hinterhalte sind erst möglich, wenn der Spieler mindestens diese Stufe errreicht hat.",
+          "valueOptions": {
+            "min": 0,
+            "max": 50.0,
+            "step": 1.0,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|105FE"
+          }
+        },
+        {
+          "text": "Verhindere NPC-zu-NPC-Hinterhalte (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, lauern NPCs nicht anderen NPCs auf.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|01153A"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Verstärkungseinheiten",
+          "type": "section"
+        },
+        {
+          "text": "Verstärkungseinheiten einschalten? (Std.:)",
+          "type": "switcher",
+          "help": "Wenn EIN, können bestimmte PANPCs in schwierigen Kampfsituationen Verstärkung anfordern.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ReinforceEnabled"
+          }
+        },
+        {
+          "text": "Zahl der NPCs die pro Ruf nach Verstärkung zur Hilfe kommen (Std.: 3)",
+          "type": "slider",
+          "help": "Zahl der PANPCs, die bei einem Ruf-nach-Verstärkung-Ereignis herbeigerufen werden.",
+          "valueOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ReinforceCount"
+          }
+        },
+        {
+          "text": "Zeit bis Verstärkungseinheiten wieder abziehen (Std.: 1 Std.)",
+          "type": "slider",
+          "help": "Verstärkungseinheiten werden nach dieser Zeit außerhalb des Kampfes abziehen.",
+          "valueOptions": {
+            "min": 0.5,
+            "max": 12.0,
+            "step": 0.5,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ReinforceDespawnTime"
+          }
+        },
+        {
+          "text": "Zeit bis PANPC erneut Verstärkung rufen kann (Std. 3 Std.)",
+          "type": "slider",
+          "help": "Ein PANPC kann erst nach dem Ablauf dieser Zeit erneut Verstärkung rufen.",
+          "valueOptions": {
+            "min": 0.5,
+            "max": 12.0,
+            "step": 0.5,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ReinforceCooldown"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Fähigkeiten (nach Rasse)",
+      "content": [
+        {
+          "text": "Wilde Ghule",
+          "type": "section"
+        },
+        {
+          "text": "Bewusstseinsbereich des Schwarms skalieren (Std: 1.0)",
+          "type": "slider",
+          "help": "Skaliert den Bewusstseinsbereich des Schwarms der Wilden Ghule mit PA-Aktivierung.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18066"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Supermutanten",
+          "type": "section"
+        },
+        {
+          "text": "Chance auf Spawns mit zusätzlicher Resistenz/Regenerationsrate\n (Std.: 0.0)",
+          "type": "slider",
+          "help": "Wenn > 0, spawnen Supermutanten mit langsamer \nLebensregeneration (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.01,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18064"
+          }
+        },
+        {
+          "text": "Stellt die Spawnwahrscheinlichkeit für Supermutanten-Selbstrmörder ein \n(Std.: 0.0)",
+          "type": "slider",
+          "help": "Wenn > 0, können Supermutanten-Selbstmörder in Klonen spawnen\n (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.01,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18065"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Synths",
+          "type": "section"
+        },
+        {
+          "text": "Wahrscheinlichkeit einer Pulsexplosion bei Tod (Std.: 0.0)",
+          "type": "slider",
+          "help": "Stellt die Wahrscheinlichkeit einer Pulsexplosion bei Tod ein (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18067"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Modifikatoren",
+      "content": [
+        {
+          "text": "Tapferkeit und Rudel-Bewertung",
+          "type": "section"
+        },
+        {
+          "text": "Mindest-Tapferkeitsmodifikator (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die Mindest-Tapferkeitsstufen für alle NPCs.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_MinCourageMod"
+          }
+        },
+        {
+          "text": "Maximaler Tapferkeitsmodifikator (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die maximalen Tapferkeitsstufen für alle NPCs.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_MaxCourageMod"
+          }
+        },
+        {
+          "text": "Mindest-Packsstärke-Modifikator (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die Mindest-Packstärke (erforderlich für Tapferkeit) für alle NPCs.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_MinPackStrMod"
+          }
+        },
+        {
+          "text": "Waffen-Wagemut-Modifikator der Gegner (Std.: 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte bedeuten, dass alle NPCs im Allgemeinen mutiger sind, wenn es um Waffen geht.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_EnemyWeapBraveMod"
+          }
+        },
+        {
+          "text": "Wagemut-Modifikator bezüglich Powerrüstung",
+          "type": "slider",
+          "help": "Höhere Werte geben Trägern von Powerrüstungen höhere Einschüchterungswerte.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_PowerArmorBraveMod"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Bereichsscannen",
+          "type": "section"
+        },
+        {
+          "text": "Maximaler Scan-Reichweiten-Modifikator (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die maximale Scanreichweite für alle NPCs.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_MaxScanRangeMod"
+          }
+        },
+        {
+          "text": "Modifikator für effektive Scanreichweite (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert alle effektiven Scanreichweiten aller NPCs.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ScanRangeMod"
+          }
+        },
+        {
+          "text": "Skalierung der effektiven Scanreichweite (Innenbereich) (Std.: 0.25)",
+          "type": "slider",
+          "help": "Skaliert die NPC-Scanreichweite im Innenbereich (verhindert Zusammenballung)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_IndoorScanMod"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Taktik und Manöver",
+          "type": "section"
+        },
+        {
+          "text": "Modifikator für Kampfkamerad (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die Wahrscheinlichkeit, dass ein PANPC versucht, in der Nähe von Kameraden zu bleiben.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_BattleBuddyMod"
+          }
+        },
+        {
+          "text": "Modifikator für Höhenvorteil (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die erforderliche z-Achsen-Entfernung, um taktisch als 'Höhenvorteil' definiert zu werden.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_HighGroundScale"
+          }
+        },
+        {
+          "text": "Modifikator für die NPC-Aufmerksamkeitsspanne (Std.: 1.0)",
+          "type": "slider",
+          "help": "Skaliert die Zeit, die von allen NPCs für Entscheidungen benötigt wird oder um Entscheidungen zu ändern.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_NPCTimeMod"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Überfalltrupps ",
+      "content": [
+        {
+          "text": "Zufällige Überfalltrupps",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Basischance für das Spawnen von Überfalltruppes (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass Überfalltrupps in einem bestimmten Zyklus erscheinen. (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Clone_RandomRaider_Odds"
+          }
+        },
+        {
+          "text": "Skaliert die Wahrscheinlichkeit, dass Überfalltrupps bis zur festgelegten Spielerstufe erscheinen.  (Std.:20)",
+          "type": "slider",
+          "help": "Wenn größer 0, wird die Wahrscheinlichkeit für das Auftreten von Überfalltrupps allmählich bis zur Basischance skaliert, bis zur festgelegten Spielerstufe.",
+          "valueOptions": {
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ScaleRaidToLevel"
+          }
+        },
+        {
+          "text": "Zeitintervall der Überfalltrupps  (Std.: 4 Std.)",
+          "type": "slider",
+          "help": "Der Generator für Überfalltrupps wird ungefähr alle X Stunden einen Zyklus durchlaufen.",
+          "valueOptions": {
+            "min": 1.0,
+            "max": 12.0,
+            "step": 0.5,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Clone_RandomRaider_Hours"
+          }
+        },
+        {
+          "text": "Spawn-Reichweite der Überfalltrupps (Std. 1.0)",
+          "type": "slider",
+          "help": "Zufällige Angreifer werden nur innerhalb einer begrenzten Entfernung zum Spieler erscheinen. (1.0 = etwa 1500-3000u)",
+          "valueOptions": {
+            "min": 0.5,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Clone_RandomRaider_Range"
+          }
+        },
+        {
+          "text": "Spawn-Anzahl der Überfalltrupps (Std.: 3)",
+          "type": "slider",
+          "help": "Anzahl der Angreifer/Überfalltrupps eines einzelnen Spawnereignisses.",
+          "valueOptions": {
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Clone_RandomRaider_Count"
+          }
+        },
+        {
+          "text": "Erlaube Überfalltrupps in Siedlungen/Workshops? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn AUS, spawnen keine Überfalltrupps während der Spieler in einer Siedlung/einem Workshop ist.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_AllowSettlementRaids"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit von Zeta-Alien-Überfalltrupps? (Std.: 0)",
+          "type": "slider",
+          "help": "Wahrscheinllichkeit von Zeta-Aliens als mögliche Überfalltrupps (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0.0,
+            "max": 1.0,
+            "step": 0.025,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|01803F"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Zusammensetzung von Überfalltrupps",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Standardmäßig führen NPCs nur in ihrem eigenen Territorium Überfälle durch.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Wahrscheinlichkeit für das Spawnen von Fraktions-NPCS \nin neutralen Gebieten (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass Fraktions-NPCs in neutralen Gebieten spawnen (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Clone_RandomRaider_Neutral_Odds"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit für das Spawnen von gegnerischen NPCS in neutralen Gebieten (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass Fraktions-NPCs in Gebiet spawnen, die von gegnerischen Fraktionen beherrscht werden (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Clone_RandomRaider_Hostile_Odds"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Arena-Modus",
+      "content": [
+        {
+          "text": "Spawns im Arena-Modus",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "EINMAL auf einen Spawnbutton klicken, um eine kleine Gruppe von Anführern und legendären Gegner zu spawnen, die sich auf den Spieler zubewegen. Sie werden bereits feindlich gesinnt und kampfbereit sein.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Gesamtzahl der Arena-Gegnerwellen (Std.: 1) ",
+          "type": "slider",
+          "help": "Zahl der PANPCs, die bei einem Ruf-nach-Verstärkung-Ereignis herbeigerufen werden.",
+          "valueOptions": {
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|13B58"
+          }
+        },
+        {
+          "text": "Entfernen aller verbleibenden Akteure erzwingen?",
+          "type": "switcher",
+          "help": "Wenn EIN, werden alle verbleibenden aktiven Arena-Akteure entfernt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|1806C"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Spawne Arena-Team 1 - Mariposa Supermutanten",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein Supermutanten-Team mit Minigun/Raketenwerfer.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}1"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 2 - Legendäre Raider mit Powerrüstung",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein Raider-Team mit PR-Unterstützung.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}2"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 4 - Legendäre Gunner mit Powerrüstung",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein Gunner-Team mit PR-Unterstützung.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}3"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 4 - Legendäre Synths mit Anführer",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein legendäres Synth-Team mit Anführer.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}4"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 5 - Gang von Todesschützen",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein Todesschützen-Team.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}5"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 6 - Kinder des Atoms",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein Kinder des Atoms-Team.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}6"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 7 - Todeskrallen",
+          "type": "button",
+          "help": "Dieser Knopf spawnt mehrere legendäre Todeskrallen.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}7"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 8 - Stark bewaffnetes Bruderschaft-Team",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein stark bewaffnetes PR-Bruderschaft-Team.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}8"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 9 - Schwer bewaffnetes Geschmiedete-Team",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein schwer bewaffnetes Geschmiedete-Team.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}9"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 10 - Mirelurk-Jäger",
+          "type": "button",
+          "help": "Dieser Knopf spawnt mehrere Mirelurk-Jäger auf Anführerstufe.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}10"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 11 - Bösartige Hunde",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein legendäres Rudel bösartiger Hunde.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}11"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 12 - Legendäre wilde Ghule, Leuchtende",
+          "type": "button",
+          "help": "Dieser Knopf spawnt eine legendäre Gruppe wilder Ghule mit Anführer und Glühendem.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}12"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 13 - Legendäre Gunner-Scharfschützen",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein individuelles Team legendärer Gunner-Scharfschützen.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}13"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 12 - Zeta-Aliens",
+          "type": "button",
+          "help": "Dieser Knopf spawnt eine Gruppe rasender Zeta-Aliens.",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}14"
+            ]
+          }
+        },
+        {
+          "text": "Spawne Arena-Team 13 - Legendäre Rust Devils",
+          "type": "button",
+          "help": "Dieser Knopf spawnt ein Team legendärer Rust Devils",
+          "action": {
+            "type": "CallFunction",
+            "form": "PANPC.esm|4CCA",
+            "function": "LaunchArena",
+            "params": [
+              "{i}15"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Extras-Spawns (Außenbereich)",
+      "content": [
+        {
+          "text": "Zusätzliche NPC-Spawns in Außenbereichen.",
+          "type": "section"
+        },
+        {
+          "text": "Zusätzliche feindliche Spawns einschalten (Außenbereich)? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, spawnen NPCs in PR beim Laden der Zelle zusätzliche Klone von sich selbst.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CanClone"
+          }
+        },
+        {
+          "text": "Tote NPC-Klone beim Entladen der Zelle entfernen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden tote Klone aus dem Spiel entfernt, wenn sie aus dem Speicher entfernt werden.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_DeleteCloneOnUnload"
+          }
+        },
+        {
+          "text": "Zusätzliche Klone patroullierender NPCs verhindern? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, werden patroullierende NPCs beim Klonen berücksichtigt, schließen sich einer solchen aber nicht an.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_NoCloneForPatrols"
+          }
+        },
+        {
+          "text": "Grundwahrscheinlichkeit eines jeden Agentens zusätzliche Klone zu erzeugen (Std.: 0.35)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit eines Agenten zusätzliche Klone zu spawnen (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneOdds"
+          }
+        },
+        {
+          "text": "Grundwahrscheinlichkeit von Klonen, dass sie das gleiche Aggressionslevel des Vorläufers erben (Std.: 1.0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit von Klonen, dass sie mit dem gleichen Aggressionslevel des Vorläufers spawnen (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneAggroOdds"
+          }
+        },
+        {
+          "text": "Höchstzahl an zufälligen Klonen pro Agent (Std.: 1)",
+          "type": "slider",
+          "help": "Wenn ein Agent sich klont, wird diese Anzahl zusätzlicher Spawns nicht überschritten.",
+          "valueOptions": {
+            "min": 0,
+            "max": 5,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_MaxClones"
+          }
+        },
+        {
+          "text": "Skaliert die Wahrscheinlichkeit für zusätzliche Spawns bis zur festgelegten Spielerstufe (Std.: 20)",
+          "type": "slider",
+          "help": "Wenn größer 0, skaliert die Spawn-Wahrscheinlichkeit graduell zur Grundwahrscheinlichkeit hoch bis zur gesetzten Spielerstufe.",
+          "valueOptions": {
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ScaleSpawnToLevel"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Anführer-Spawns",
+          "type": "section"
+        },
+        {
+          "text": "Wahrscheinlichkeit einen Klon mit Anführerlevel\nzu spawnen (Std.: 0.25)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit einen Klon zu spawnen,\nder viel stärker als der ursprüngliche NPC ist (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_BossSpawnOdds"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit einen Klon mit höherem Level zu spawnen \n(Std.: 0.40)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass ein gespawnter Klon\ndeutlich stärker ist als der ursprüngliche NPC (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_HigherLevelOdds"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit einen Klon zu spawnen, der ein wenig stärker ist \n(Std. 0.75)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass ein gespawnter Klon\netwas stärker als der ursprüngliche NPC ist (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ToughLevelOdds"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit, einen schwächeren Klon zu spawnen (Std.: 0.0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass ein gespawnter Klon\nschwächer als der ursprüngliche NPC ist (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_LowLevelOdds"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Extra-Spawns (Innenbereich)",
+      "content": [
+        {
+          "text": "Extra-NPC-Spawns: Innenbereich",
+          "type": "section"
+        },
+        {
+          "text": "Zusätzliche feindliche NPC-Spawns (Innenbereich) einschalten? (Std. AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, spawnen NPCs in PR beim Laden der Zelle zusätzliche Klone von sich selbst.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CanClone_Int"
+          }
+        },
+        {
+          "text": "Tote NPC-Klone beim Entladen der Zelle entfernen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden tote Klone aus dem Spiel entfernt, wenn sie aus dem Speicher entfernt werden.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_DeleteCloneOnUnload_Int"
+          }
+        },
+        {
+          "text": "Grundwahrscheinlichkeit von weiterem Spawnen pro Klon (Std. 0.35)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit eines Agenten zusätzliche Klone zu spawnen (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneOdds_Int"
+          }
+        },
+        {
+          "text": "Grundwahrscheinlichkeit von Klonen, dass sie das gleiche Aggressionslevel des Vorläufers erben (Std.: 1.0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit von Klonen, dass sie mit dem gleichen Aggressionslevel des Vorläufers spawnen (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneAggroOdds_Int"
+          }
+        },
+        {
+          "text": "Höchstzahl an zufälligen Klonen pro Agent (Std.: 1)",
+          "type": "slider",
+          "help": "Wenn ein Agent sich klont, wird diese Anzahl zusätzlicher Spawns nicht überschritten.",
+          "valueOptions": {
+            "min": 0,
+            "max": 5,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_MaxClones_Int"
+          }
+        },
+        {
+          "text": "Skaliert die Wahrscheinlichkeit für zusätzliche Spawns bis zur festgelegten Spielerstufe (Std.: 20)",
+          "type": "slider",
+          "help": "Wenn größer 0, skaliert die Spawn-Wahrscheinlichkeit graduell zur Grundwahrscheinlichkeit hoch bis zur gesetzten Spielerstufe.",
+          "valueOptions": {
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "sourceType": "PropertyValueInt",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ScaleSpawnToLevel_Int"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Anführer-Spawns",
+          "type": "section"
+        },
+        {
+          "text": "Wahrscheinlichkeit einen Klon mit Anführerlevel zu spawnen \n(Std.: 0.25)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit einen Klon zu spawnen, der viel stärker als der ursprüngliche NPC ist (1.0 = 100%)",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_BossSpawnOdds_Int"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit einen Klon mit höherem Level zu spawnen \n(Std.: 0.40)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass ein gespawnter Klon deutlich stärker ist als der ursprüngliche NPC (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_HigherLevelOdds_Int"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit einen Klon zu spawnen, der ein wenig stärker ist \n(Std. 0.75)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass ein gespawnter Klon etwas stärker als der ursprüngliche NPC ist (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_ToughLevelOdds_Int"
+          }
+        },
+        {
+          "text": "Wahrscheinlichkeit, einen schwächeren Klon zu spawnen (Std.: 0.0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass ein gespawnter Klon schwächer als der ursprüngliche NPC ist (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_LowLevelOdds_Int"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Zusätzliche Spawns (Nach Rasse)",
+      "content": [
+        {
+          "text": "Zusätzliche Spawns (Nach Rasse)",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Diese Einstellungen überschreiben die globalen Wahrscheinlichkeits-Einstellungen für zusätzliche Spawns. Der globale Wahrscheinlichkeitswert für Anführer bleibt unberührt.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Wilde Ghule - Spawn-Wahrscheinlichkeit (Innen) (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass zusätzliche wilde Ghule in Innenbereichen spawnen (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneMod_Feral_Int"
+          }
+        },
+        {
+          "text": "Wilde Ghule - Spawn-Wahrscheinlichkeit (Außen) (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass zusätzliche wilde Ghule in Außenbereichen spawnen (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneMod_Feral_Ext"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Todeskrallen - Spawn-Wahrscheinlichkeit (Innen) (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass zusätzliche Todeskrallen in Innenbereichen spawnen (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneMod_Deathclaw_Int"
+          }
+        },
+        {
+          "text": "Todeskrallen - Spawn-Wahrscheinlichkeit (Außen) (Std.: 0)",
+          "type": "slider",
+          "help": "Die Wahrscheinlichkeit, dass zusätzliche Todeskrallen in Außenbereichen spawnen (1.0 = 100%).",
+          "valueOptions": {
+            "min": 0,
+            "max": 1.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_CloneMod_Deathclaw_Ext"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Heimlichkeit",
+      "content": [
+        {
+          "text": "Heimlichkeit und Entdeckung",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Das PANPC-Detektions-System wägt das Interesse der NPCs mit deinen Schleichfähigkeiten ab. Es ist UNMÖGLICH , 100% versteckt zu bleiben. (Hinweis: Dieses System beeinflusst AUSSCHLIEßLICH Scandaten und -systeme und hat keinen Einfluss auf die NPC-Detektierung des vanilla-Spiels.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Nehmen Feinde das Pip-Boy-Licht wahr (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, haben es Feinde leichter, dich bei eingeschaltetem Pip-Boy-Licht im Dunkeln zu entdecken.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18041"
+          }
+        },
+        {
+          "text": "Nehmen Feinde das Pip-Boy-Radio wahr (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn EIN, haben es Feinde leichter, dich bei eingeschaltetem Pip-Boy-Radio zu entdecken.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18040"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "PANPCs Lichterkennung einschalten (Std.: ON)",
+          "type": "stepper",
+          "help": "Wenn AUS, ziehen gespawnte NPCs Licht und Schatten nicht mehr in taktische Entscheidung mit ein.",
+          "valueOptions": {
+            "options": [
+              " AUS ",
+              " EIN ",
+              "Nur Innenbereiche "
+            ],
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|6BD5"
+          }
+        },
+        {
+          "text": "PANPC-Ablenkungssystem einschalten (Std.: EIN)",
+          "type": "stepper",
+          "help": "Wenn AUS, reagieren gespawnte NPCs nicht mehr auf Ablenkungsmechaniken und -werkzeuge.",
+          "valueOptions": {
+            "options": [
+              "AUS",
+              "EIN",
+              "Nur Innenbereiche"
+            ],
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|6BD4"
+          }
+        },
+        {
+          "text": "Globaler Interessensmodifikator (Std.: 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte erhöhen global das Interesse der NPCs und vermindert die Wirksamkeit von Heimlichkeit.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Stealth_Curiosity_Mod"
+          }
+        },
+        {
+          "text": "Modifikator für Geräuschpegel (Std.: 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte erhöhen den Entdecken-Geräuschpegel aller NPCs inklusive des Spielers.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_DetectLoudMod"
+          }
+        },
+        {
+          "text": "Modifikator für NPC-Stealth-Boy/Unsichtbarkeit (Std.: 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte reduzieren die Fähigkeit von NPCs, unsichtbare Ziele wahrzunehmen.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Stealth_Invisible_Mod"
+          }
+        },
+        {
+          "text": "Entfernungsmodifikator (Std.: 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte reduzieren die Fähigkeit von NPCs, Ziele auf Entfernung wahrzunehmen.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Stealth_Distance_Hidden_Mod"
+          }
+        },
+        {
+          "text": "Modifikator für Dunkelheit (Std.: 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte reduzieren die Fähigkeit von NPCs, Ziele im Dunklen wahrzunehmen.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Stealth_Darkness_Hidden_Mod"
+          }
+        },
+        {
+          "text": "Modifikator für Schleichen (Std. 1.0)",
+          "type": "slider",
+          "help": "Höhere Werte reduzieren die Fähigkeit von NPCs, schleichende Ziele wahrzunehmen.",
+          "valueOptions": {
+            "min": 0,
+            "max": 2.0,
+            "step": 0.05,
+            "sourceType": "PropertyValueFloat",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_Stealth_Sneaking_Hidden_Mod"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Leistung",
+      "content": [
+        {
+          "text": "Energiespar-Modus",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "PANPC-KIs im Energiespar-Modus (ESM) führen nur für Zusatz-Spawns und Überfalltrupps notwendigen Funktionen aus. PANPC-ESM betrifft nicht die KI von Gefährten.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Maximale Anzahl der aktiven KIs im ESM (Std.: 20)",
+          "type": "slider",
+          "help": "Maximale # aktiver KIs gleichzeitig im ESM (0 = kein Limit).",
+          "valueOptions": {
+            "min": 0.0,
+            "max": 100.0,
+            "step": 1.0,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|105DA"
+          }
+        },
+        {
+          "text": "Maximale Anzahl von Klonen aktiver KIs.",
+          "type": "slider",
+          "help": "Maximale # an Klonen mit aktiver KI gleichzeitig.",
+          "valueOptions": {
+            "min": 0.0,
+            "max": 40.0,
+            "step": 1.0,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18062"
+          }
+        },
+        {
+          "text": "Verzögerte ESM-Aktivierung",
+          "type": "slider",
+          "help": "Verzögerung (# Sekunden) zwischen jedem NPC-Neustart durch den ESM.",
+          "valueOptions": {
+            "min": 1.0,
+            "max": 10.0,
+            "step": 0.05,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|18060"
+          }
+        },
+        {
+          "text": "Erzwinge den PANPC-ESM für alle NPCs in Außenbereichen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, läuft das PANPC-KI-Skript nur im Minimalbetrieb für NPCs in Außenbereichen (z.B. in der Oberwelt).",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|642B"
+          }
+        },
+        {
+          "text": "Erzwinge den PANPC-ESM für alle NPCs in Innenbereichen? (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, läuft das PANPC-KI-Skript nur im Minimalbetrieb für NPCs in Innenbereich (z.B. Corvega).",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|642A"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Die PANPC-Drosselung reduziert den Ressourcenverbrauch durch PANPC im Spiel, hat jedoch zur Folge, dass die KI weniger effektiv und reaktionsschnell ist. Erhöhe diese Einstellung, wenn es in stark gemoddeten Spiele-Setups zu Abstürzen und Stapelabzügen kommt.",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "PANPC-Drosselungsrate (Außenbereich) \n(WARNUNG: EXPONENTIELL!) (Std.: 0.1)",
+          "type": "slider",
+          "help": "Höhere Werte zwingen PANPC dazu, während Phasen mit hoher Skript-Belastung seine KI-Aufgaben herunterzuskalieren.",
+          "valueOptions": {
+            "min": -0.5,
+            "max": 0.5,
+            "step": 0.001,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|642C"
+          }
+        },
+        {
+          "text": "PANPC-Drosselungsrate (Innenbereich) \n(WARNUNG: EXPONENTIELL!) (Std.: 0.1)",
+          "type": "slider",
+          "help": "Höhere Werte zwingen PANPC dazu, während Phasen mit hoher Skript-Belastung seine KI-Aufgaben herunterzuskalieren.",
+          "valueOptions": {
+            "min": -0.5,
+            "max": 0.5,
+            "step": 0.001,
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|17883"
+          }
+        }
+      ]
+    },
+    {
+      "pageDisplayName": "Debug-Modus",
+      "content": [
+        {
+          "text": "Debug-Modus",
+          "type": "section"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Ich verwende dies, um In-Game-Debug-Benachrichtigungen zu kennzeichnen. Für die meisten Spieler ist dies jedoch nicht erforderlich. (WARNUNG: Wenn eines der beiden aktiviert ist, kann dies wahrscheinlich die Leistung beeinträchtigen.)",
+          "type": "text"
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Schreibe interne Debug-Meldungen in die Logdateien (Std.: AUS)",
+          "type": "switcher",
+          "help": "Wenn EIN, werden Debug-Meldungen in eine PANPC-Logdatei geschrieben statt auf dem Bildschirm.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|642D"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "PANPC Deinstallieren",
+          "type": "section"
+        },
+        {
+          "text": "Erzwinge Beendigung aller PANPC-KI-Skripte? (Std.: AUS)",
+          "type": "switcher",
+          "help": "EINSCHALTEN, damit PANPC sicher deinstalliert werden kann.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|14300"
+          }
+        },
+        {
+          "type": "spacer"
+        },
+        {
+          "text": "Teilsystem-Steuerung",
+          "type": "section"
+        },
+        {
+          "text": "PANPC-NPC-Registrierung einschalten (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, erkennt und registriert PANPC keine neu gespawnten NPCs mehr.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|AFA6"
+          }
+        },
+        {
+          "text": "PANPC-KI-Verarbeitung einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, verarbeitet PANPC veränderte KI nicht weiter. Zusätzliches Spawnen bleibt unberührt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|6430"
+          }
+        },
+        {
+          "text": "Zusätzliche PANPC-KI-Spawns einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, verarbeitet PANPC nicht länger zusätzliche Spawns. Die KI bleibt unberührt.",
+          "valueOptions": {
+            "sourceType": "PropertyValueBool",
+            "sourceForm": "PANPC.esm|4CCA",
+            "propertyName": "MCM_SpawnsEnabled"
+          }
+        },
+        {
+          "text": "PANPC-Kampf-Modi einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird PANPC das Wechseln von Kampfhaltungen einstellen. Manöver (sich sammeln usw.) sind davon nicht betroffen.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|6431"
+          }
+        },
+        {
+          "text": "PANPC-Manöver einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, wird PANPC das Wechseln von Manövern einstellen. Kampfhaltungen bleiben unberührt.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|642E"
+          }
+        },
+        {
+          "text": "Zusätzliche PANPC-Erkennungsereignisse einschalten? (Std.: EIN)",
+          "type": "switcher",
+          "help": "Wenn AUS, stoppt PANPC weitere Erkennungsereignisse.",
+          "valueOptions": {
+            "sourceType": "GlobalValue",
+            "sourceForm": "PANPC.esm|642F"
+          }
+        }
+      ]
+    }
+  ]
+}
