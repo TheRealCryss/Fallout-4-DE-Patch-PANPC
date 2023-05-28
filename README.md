@@ -12,7 +12,7 @@ a Fallout 4 mod by Greslin
 
 ## Beschreibung:  
 
-### Hinweis: Dies ist ein Pre-release, in dem nur die MCM-Einstellungen übersetzt sind. In 1.0 werden alle Meldungen übersetzt sein.  
+### Hinweis: Dies ist ein Pre-release, in dem nur die MCM-Einstellungen (100%) und Teile der Meldungen und Items übersetzt sind. Es fehlen außerdem noch die optionalen .ESPs (Fallen und Explosionsvermeidung).  
 
 
 ## Installation  
