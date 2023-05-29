@@ -12,7 +12,13 @@ a Fallout 4 mod by Greslin
 
 ## Beschreibung:  
 
-### Hinweis: Dies ist ein Pre-release, in dem nur die MCM-Einstellungen (100%) und Teile der Meldungen und Items übersetzt sind. Es fehlen außerdem noch die optionalen .ESPs (Fallen und Explosionsvermeidung).  
+### Hinweis: Dies ist ein Pre-release:
+
+Übersetzt:
+MCM-Konfiguration: 100%
+PANPC.ESM: (Meldungen, es fehlt: Holotapeeinträge, evt. Strings in Skripten)
+trap_alerts.esp: 100%
+explosion_responses.esp: Nichts zu übersetzen
 
 
 ## Installation  
