@@ -14,11 +14,11 @@ a Fallout 4 mod by Greslin
 
 ### Hinweis: Dies ist ein Pre-release:
 
-Übersetzt:
-MCM-Konfiguration: 100%
-PANPC.ESM: (Meldungen, es fehlt: Holotapeeinträge, evt. Strings in Skripten)
-trap_alerts.esp: 100%
-explosion_responses.esp: Nichts zu übersetzen
+Übersetzt:  
+- MCM-Konfiguration: 100%  
+- PANPC.ESM: (Meldungen, es fehlt: Holotapeeinträge, evt. Strings in Skripten)  
+- trap_alerts.esp: 100%  
+- explosion_responses.esp: Nichts zu übersetzen  
 
 
 ## Installation  
