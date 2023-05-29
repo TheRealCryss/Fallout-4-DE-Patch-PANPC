@@ -22,7 +22,7 @@ a Fallout 4 mod by Greslin
 
 
 ## Installation  
-Platziere einfach den Patch nach PANPC in deinem Mod-Manager (am besten MO2). Dadurch wird einfach die EN-Version der PANPC-Konfigurationsdatei für MCM (config.json) überschrieben und das Menu ist in Deutsch.  
+Platziere einfach den Patch nach PANPC in deinem Mod-Manager (am besten MO2). Dadurch wird die EN-Version der PANPC-Konfigurationsdatei für MCM (config.json) überschrieben und das Menu ist in Deutsch.  
 
 ## Download:  
 Github: https://github.com/TheRealCryss/Fallout-4-DE-Patch-PANPC/releases
