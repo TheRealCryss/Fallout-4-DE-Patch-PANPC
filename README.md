@@ -41,7 +41,13 @@ ESP-ESM Translator
 https://www.nexusmods.com/skyrimspecialedition/mods/921/?tab=description  
 
 ## Changelog:  
+
+[2023/05/31]  
+
+Stable Release 1.0 für PANPC 2.0.12.1  
+- MCM config übersetzt  
+
 [2023/05/20]  
 
-Erstes Release 0.9
+Erstes Release 0.9  für PANPC 2.0.12.1  
 - MCM config übersetzt
